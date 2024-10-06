@@ -23,7 +23,7 @@ class PostDeleteForm(PostBaseForm):
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].disalbed = True
+            self.fields[field].disabled = True
 
 
 class SearchForm(forms.Form):
@@ -37,3 +37,22 @@ class SearchForm(forms.Form):
             }
         )
     )
+
+# class PostForm(forms.Form):
+#     title = forms.CharField(
+#         max_length=100,
+#     )
+#
+#     content = forms.CharField(
+#         widget=forms.Textarea,
+#     )
+#
+#     author = forms.CharField(
+#         max_length=30,
+#     )
+#
+#     created_at = forms.DateTimeField()
+#
+#     languages = forms.ChoiceField(
+#         choices=LanguageChoice.choices
+#     )

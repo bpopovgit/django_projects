@@ -15,11 +15,13 @@
 <body>
     {% include 'nav.html' %}
         <div class="container">
+            {% include 'posts/search-form.html' %}
             <div class="posts">
-                {% for post in posts %}
+            {% for post in posts %}
+                <a id="post-url" href="{% url 'details-post' post.pk %}">
                     <div class="post">
                         <h2>{{ post.title|capfirst }}</h2>
-                        
+                    
                         {% if not post.content %}
                             {% lorem 3 p %}
                         {% else %}
@@ -30,11 +32,13 @@
                             <span>Posted by {{ post.author|default:"anonymous" }} on {{ post.created_at|date:"d-M-Y" }}</span>
                         </div>
                     </div>
-                {% empty %}
-                    <h1>No Posts</h1>
-                {% endfor %}
-            </div>
+                </a>
+
+            {% empty %}
+                <h1>No Posts</h1>
+            {% endfor %}
         </div>
+    </div>
     
 </body>
     <script src='https://unpkg.com/akar-icons-fonts'></script>

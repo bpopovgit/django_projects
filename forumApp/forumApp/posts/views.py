@@ -22,11 +22,11 @@ def dashboard(request):
     if request.method == "GET":
         if form.is_valid():
             query = form.cleaned_data['query']
-            posts = posts.filter(title_icontains=query)
+            posts = posts.filter(title__icontains=query)
 
     context = {
         "posts": posts,
-        "form": form
+        "form": form,
     }
 
     return render(request, 'posts/dashboard.html', context)
@@ -41,14 +41,14 @@ def add_post(request):
             return redirect('dash')
 
     context = {
-        "form": form
+        "form": form,
     }
 
     return render(request, 'posts/add-post.html', context)
 
 
 def edit_post(request, pk: int):
-    return HttpResponse()  # TO DO: FIX
+    return HttpResponse()  # TODO: fix it
 
 
 def details_page(request, pk: int):
@@ -58,7 +58,7 @@ def details_page(request, pk: int):
         "post": post,
     }
 
-    return render(request, "posts/details-post.html", context)
+    return render(request, 'posts/details-post.html', context)
 
 
 def delete_post(request, pk: int):
@@ -71,7 +71,7 @@ def delete_post(request, pk: int):
 
     context = {
         "form": form,
-        "post": post
+        "post": post,
     }
 
     return render(request, 'posts/delete-template.html', context)
