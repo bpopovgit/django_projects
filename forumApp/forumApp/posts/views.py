@@ -7,7 +7,7 @@ from forumApp.posts.models import Post
 def index(request):
     post_form = modelform_factory(
         Post,
-        fields=('title', 'content', 'author', 'languages'),
+        fields=('title', 'content', 'author', 'languages' ),
     )
 
     context = {
@@ -35,7 +35,7 @@ def dashboard(request):
 
 
 def add_post(request):
-    form = PostCreateForm(request.POST or None)
+    form = PostCreateForm(request.POST or None, request.FILES or None)
 
     if request.method == "POST":
         if form.is_valid():

@@ -32,7 +32,7 @@ class Post(models.Model):
     )
 
     image = models.ImageField(
-        upload_to='posts/images',
+        upload_to='post_images/',
         blank=True,
         null=True,
     )

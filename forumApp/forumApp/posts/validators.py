@@ -6,15 +6,15 @@ def bad_language_validator(value):
     bad_words = ["bad_word1", "bad_word2", "bad_word3"]
 
     for bad_word in bad_words:
-        if bad_word.lower() in value.lower():
-            raise ValidationError("The text contains bad language!")
 
+        if bad_word.lower() in value.lower():
+            raise ValidationError('The text contains bad language!')
 
 
 @deconstructible
 class BadLanguageValidator:
 
-    def init(self, bad_words=None):
+    def __init__(self, bad_words=None):
         if bad_words is None:
             self.bad_words = ["bad_word1", "bad_word2", "bad_word3"]
         else:
