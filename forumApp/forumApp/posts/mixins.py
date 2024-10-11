@@ -1,7 +1,7 @@
 from django import forms
 
 
-class DisabledFieldsMixin(forms.Form):
+class DisableFieldsMixin(forms.Form):
     disabled_fields = ()
 
     def __init__(self, *args, **kwargs):

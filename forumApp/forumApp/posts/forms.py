@@ -3,7 +3,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import formset_factory
 
-from forumApp.posts.mixins import DisabledFieldsMixin
+from forumApp.posts.mixins import DisableFieldsMixin
 from forumApp.posts.models import Post, Comment
 
 
@@ -12,21 +12,22 @@ class PostBaseForm(forms.ModelForm):
         model = Post
         fields = "__all__"
 
-    error_messages = {
-        'title': {
-            'required': 'Please enter the title of your post',
-            'max_length': f'The title is too long. Please keep it under {Post.TITLE_MAX_LENGTH} characters',
-        },
-        'author': {
-            'required': 'Please enter an author'
-        },
-    }
+        error_messages = {
+            'title': {
+                'required': 'Please enter the title of your post',
+                'max_length': f'The title is too long. Please keep it under {Post.TITLE_MAX_LENGTH} characters',
+            },
+            'author': {
+                'required': 'Please enter an author'
+            },
+        }
+
 
     def clean_author(self):
         author = self.cleaned_data.get('author')
 
         if not author[0].isupper():
-            raise ValidationError('Author name should start with a capital letter!')
+            raise ValidationError('Author name should start with capital letter!')
 
         return author
 
@@ -37,7 +38,7 @@ class PostBaseForm(forms.ModelForm):
         content = cleaned_data.get('content')
 
         if title and content and title in content:
-            raise ValidationError('The post title cannot be included in the post content!')
+            raise ValidationError("The post title cannot be included in the post content")
 
         return cleaned_data
 
@@ -52,6 +53,7 @@ class PostBaseForm(forms.ModelForm):
         return post
 
 
+
 class PostCreateForm(PostBaseForm):
     pass
 
@@ -60,7 +62,7 @@ class PostEditForm(PostBaseForm):
     pass
 
 
-class PostDeleteForm(PostBaseForm, DisabledFieldsMixin):
+class PostDeleteForm(PostBaseForm, DisableFieldsMixin):
     disabled_fields = ('__all__',)
 
 
@@ -68,7 +70,7 @@ class SearchForm(forms.Form):
     query = forms.CharField(
         label='',
         required=False,
-        max_length=100,
+        max_length=10,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Search for a post...',
@@ -76,25 +78,13 @@ class SearchForm(forms.Form):
         )
     )
 
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #
+    #     self.helper = FormHelper()
+    #     self.helper.form_method = 'get'
+    #     self.helper.form_class = 'form-inline'
 
-# class PostForm(forms.Form):
-#     title = forms.CharField(
-#         max_length=100,
-#     )
-#
-#     content = forms.CharField(
-#         widget=forms.Textarea,
-#     )
-#
-#     author = forms.CharField(
-#         max_length=30,
-#     )
-#
-#     created_at = forms.DateTimeField()
-#
-#     languages = forms.ChoiceField(
-#         choices=LanguageChoice.choices
-#     )
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -108,10 +98,10 @@ class CommentForm(forms.ModelForm):
 
         error_messages = {
             'author': {
-                'required': 'Author name is required.',
+                'required': 'Author name is required. Write it!',
             },
             'content': {
-                'required': 'Content is required.',
+                'required': 'Content is required. Write it!',
             },
         }
 
@@ -128,6 +118,5 @@ class CommentForm(forms.ModelForm):
             'placeholder': 'Add message...',
             'rows': 1,
         })
-
 
 CommentFormSet = formset_factory(CommentForm, extra=1)
