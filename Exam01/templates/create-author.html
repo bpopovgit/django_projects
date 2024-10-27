@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Create Author Profile | FurryFunnies{% endblock %}
+
+{% block content %}
+<section id="register">
+  <div class="form">
+    <h2>Create Author's Profile</h2>
+
+    <form class="register-form" action="{% url 'create-author' %}" method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+        {{ form.first_name }}
+        {{ form.first_name.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+        {{ form.last_name }}
+        {{ form.last_name.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.passcode.id_for_label }}">{{ form.passcode.label }}</label>
+        <div class="helptext" id="id_passcode_helptext">{{ form.passcode.help_text }}</div>
+        {{ form.passcode }}
+        {{ form.passcode.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.pets_number.id_for_label }}">{{ form.pets_number.label }}</label>
+        {{ form.pets_number }}
+        {{ form.pets_number.errors }}
+      </div>
+
+      <button type="submit">Create</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

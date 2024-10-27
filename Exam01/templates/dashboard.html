@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | FurryFunnies{% endblock %}
+
+{% block content %}
+<section id="dashboard">
+  {% if posts %}
+    <h2>Published Posts</h2>
+    <div class="post-list">
+      {% for post in posts %}
+        <div class="post">
+          <!-- Post image -->
+          <img src="{{ post.image_url }}" alt="{{ post.title }}" />
+
+          <!-- Post title -->
+          <h3 class="title">{{ post.title }}</h3>
+
+          <!-- Post content (first 3 words) -->
+          <p class="description">
+            {% with post.content.split as words %}
+              {% for word in words|slice:":3" %}{{ word }} {% endfor %}
+              {% if words|length > 3 %}...{% endif %}
+            {% endwith %}
+          </p>
+
+          <!-- Details button linking to the post details page -->
+          <a class="details-btn" href="{% url 'details-post' post.pk %}">See More</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <h2>No published posts yet.</h2>
+  {% endif %}
+</section>
+{% endblock %}

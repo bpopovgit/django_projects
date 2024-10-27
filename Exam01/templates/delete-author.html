@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Author Profile | FurryFunnies{% endblock %}
+
+{% block content %}
+<section id="delete">
+  <div class="form">
+    <h2>Confirm Profile Deletion</h2>
+    <p>Deleting your profile will also delete all your published posts. This action cannot be undone.</p>
+
+    <form class="delete-form" action="{% url 'delete-author' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

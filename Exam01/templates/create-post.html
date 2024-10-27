@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Create Post | FurryFunnies{% endblock %}
+
+{% block content %}
+<section id="create">
+  <div class="form">
+    <h2>New Post</h2>
+    <form class="create-form" action="{% url 'create-post' %}" method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+        {{ form.title }}
+        {{ form.title.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.image_url.id_for_label }}">{{ form.image_url.label }}</label>
+        <div class="helptext" id="id_image_url_helptext">{{ form.image_url.help_text }}</div>
+        {{ form.image_url }}
+        {{ form.image_url.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+        {{ form.content }}
+        {{ form.content.errors }}
+      </div>
+
+      <button type="submit">Publish</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

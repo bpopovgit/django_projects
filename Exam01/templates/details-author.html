@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Author's Profile | FurryFunnies{% endblock %}
+
+{% block content %}
+<section id="details">
+  <div id="details-wrapper">
+    <h2>Author's Profile Details</h2>
+
+    <!-- Profile Picture -->
+    <img id="details-img" src="{{ author.image_url|default:'/static/images/default.png' }}" alt="profile picture" />
+
+    <!-- Author's Name -->
+    <p id="details-title">{{ author.first_name }} {{ author.last_name }}</p>
+
+    <!-- Total Posts Count -->
+    <p>Published Posts: {{ total_posts }}</p>
+
+    <!-- Number of Pets -->
+    <p>Pets Number: {{ author.pets_number }}</p>
+
+    <!-- Author's Info (only if available) -->
+    {% if author.info %}
+      <p>{{ author.info }}</p>
+    {% endif %}
+
+    <!-- Latest Post Title -->
+    <p>Last Updated Post: <strong>{{ latest_post_title }}</strong></p>
+
+    <!-- Edit and Delete Buttons -->
+    <div id="action-buttons">
+      <a href="{% url 'edit-author' %}" id="edit-btn">Edit</a>
+      <a href="{% url 'delete-author' %}" id="delete-btn">Delete</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Author Profile | FurryFunnies{% endblock %}
+
+{% block content %}
+<section id="edit">
+  <div class="form">
+    <h2>Edit Author's Profile</h2>
+
+    <form class="edit-form" action="{% url 'edit-author' %}" method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+        {{ form.first_name }}
+        {{ form.first_name.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+        {{ form.last_name }}
+        {{ form.last_name.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.pets_number.id_for_label }}">{{ form.pets_number.label }}</label>
+        {{ form.pets_number }}
+        {{ form.pets_number.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.info.id_for_label }}">{{ form.info.label }}</label>
+        {{ form.info }}
+        {{ form.info.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.image_url.id_for_label }}">{{ form.image_url.label }}</label>
+        {{ form.image_url }}
+        {{ form.image_url.errors }}
+      </div>
+
+      <button type="submit">Edit</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
